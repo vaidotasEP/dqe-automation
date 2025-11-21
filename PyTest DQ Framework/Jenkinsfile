@@ -1,0 +1,83 @@
+pipeline {
+    agent any
+    environment {
+        POSTGRES_SECRET = credentials('jenkins-postgres-credentials')
+    }
+    stages {
+        stage('Update Packages') {
+            steps {
+                script {
+                    // Update the package list
+                    sh 'apt-get update'
+                    sh 'apt-get install -y libpq-dev'
+                }
+            }
+        }
+        stage('Install Python') {
+            steps {
+                // Install Python and pip
+                sh 'apt-get install -y python3 python3-pip python3-venv'
+            }
+        }
+        stage('Clone Repository') {
+            steps {
+                script {
+                    // Clone the Git repository
+                    git branch: 'main', url: 'https://github.com/DanyaHDanny/dqe-automation'
+                }
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    // Create a virtual environment
+                    sh '''
+                        python3 -m venv venv
+                        . venv/bin/activate
+                        pip install -r "PyTest DQ Framework/requirements.txt"
+                    '''
+                }
+            }
+        }
+        stage('Run main') {
+            steps {
+                script {
+                    // Activate the virtual environment, set PYTHONPATH, and run the script
+                    sh '''
+                        . venv/bin/activate
+                        export PYTHONPATH=$WORKSPACE
+                        python "PyTest DQ Framework/main.py"
+                    '''
+                }
+            }
+        }
+    }
+    stage('Archive Test Report') {
+        steps {
+            // Archive the entire html_report directory, including assets
+            archiveArtifacts artifacts: 'PyTest DQ Framework/html_report/**', allowEmptyArchive: true
+
+            // Publish the HTML report
+            publishHTML(target: [
+                        allowMissing: false,  // Fail the pipeline if the report is missing
+                        keepAll: true,        // Keep all reports from previous runs
+                        reportDir: 'PyTest DQ Framework/html_report', // Correct directory path
+                        reportFiles: 'index.html',                          // Entry point file
+                        reportName: 'HTML Test Report'                      // Display name in Jenkins
+            ])
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs for details.'
+        }
+    }
+}
+
+
