@@ -44,14 +44,14 @@ pipeline {
                         python3 -m venv venv
                         . venv/bin/activate
                         pip install --upgrade pip
-                        pip install -r 'PyTest DQ Framework/requirements.txt'
+                        pip install -r PyTestDQFramework/requirements.txt
 
                         export PYTHONPATH="$WORKSPACE"
-                        ./venv/bin/python -m pytest "PyTest DQ Framework/tests" -m parquet_data \
+                        ./venv/bin/python -m pytest PyTestDQFramework/tests -m parquet_data \
                         --db_host=postgres --db_port=5432 \
                         --db_name=mydatabase --db_user="$POSTGRES_SECRET_USR" \
                         --db_password="$POSTGRES_SECRET_PSW" \
-                        --html="PyTest DQ Framework/html_report/report.html"
+                        --html="PyTestDQFramework/html_report/report.html"
                     '''
                 }
             }
@@ -59,13 +59,13 @@ pipeline {
         stage('Archive Test Report') {
             steps {
                 // Archive the entire html_report directory, including assets
-                archiveArtifacts artifacts: 'PyTest DQ Framework/html_report/**', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'PyTestDQFramework/html_report/**', allowEmptyArchive: true
 
                 // Publish the HTML report
                 publishHTML(target: [
                             allowMissing: false,  // Fail the pipeline if the report is missing
                             keepAll: true,        // Keep all reports from previous runs
-                            reportDir: 'PyTest DQ Framework/html_report', // Correct directory path
+                            reportDir: 'PyTestDQFramework/html_report', // Correct directory path
                             reportFiles: 'index.html',                          // Entry point file
                             reportName: 'HTML Test Report'                      // Display name in Jenkins
                 ])
