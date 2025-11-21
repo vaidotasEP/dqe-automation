@@ -75,18 +75,16 @@ pipeline {
                 ])
             }
         }
-        post {
-            always {
-                echo 'Pipeline execution completed.'
-            }
-            success {
-                echo 'Pipeline executed successfully!'
-            }
-            failure {
-                echo 'Pipeline failed. Please check the logs for details.'
-            }
+    }
+    post {
+        always {
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs for details.'
         }
     }
 }
-
-
