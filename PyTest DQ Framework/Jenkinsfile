@@ -36,35 +36,23 @@ pipeline {
                 }
             }
         }
-        stage('Activate virtual env') {
+        stage('Install and Run tests') {
             steps {
                 script {
                     // Create a virtual environment
                     sh '''
                         python3 -m venv venv
                         . venv/bin/activate
-                        cd 'PyTest DQ Framework'
-                        pip install -r requirements.txt
-                    '''
-                }
-            }
-        }
-        stage('Run tests') {
-            steps {
-                script {
-                    // Activate the virtual environment, set PYTHONPATH, and run the tests
-                    // dir('PyTest DQ Framework') {
-                        sh '''
+                        pip install --upgrade pip
+                        pip install -r "PyTest DQ Framework/requirements.txt"
+
                         export PYTHONPATH="$WORKSPACE"
-                        pytest tests -m "parquet_data" \
-                            --db_host="postgres" \
-                            --db_port="5432" \
-                            --db_name="mydatabase" \
-                            --db_user=$POSTGRES_SECRET_USR \
-                            --db_password=$POSTGRES_SECRET_PSW \
-                            --html=html_report/report.html
-                        '''
-                    // }
+                        python3 -m pytest "PyTest DQ Framework/tests" -m parquet_data \
+                        --db_host=postgres --db_port=5432 \
+                        --db_name=mydatabase --db_user="$POSTGRES_SECRET_USR" \
+                        --db_password="$POSTGRES_SECRET_PSW" \
+                        --html="PyTest DQ Framework/html_report/report.html"
+                    '''
                 }
             }
         }
