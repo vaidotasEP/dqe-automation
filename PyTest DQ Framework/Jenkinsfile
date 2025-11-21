@@ -46,6 +46,9 @@ pipeline {
                         pip install --upgrade pip
                         pip install -r "PyTest DQ Framework/requirements.txt"
 
+                        # Verify installation
+                        pip list | grep pytest
+
                         export PYTHONPATH="$WORKSPACE"
                         ./venv/bin/python -m pytest "PyTest DQ Framework/tests" -m parquet_data \
                         --db_host=postgres --db_port=5432 \
