@@ -52,7 +52,7 @@ pipeline {
             steps {
                 script {
                     // Activate the virtual environment, set PYTHONPATH, and run the tests
-                    dir('PyTest DQ Framework') {
+                    // dir('PyTest DQ Framework') {
                         sh '''
                         export PYTHONPATH="$WORKSPACE"
                         python3 -m pytest tests -m "parquet_data" \
@@ -63,7 +63,7 @@ pipeline {
                             --db_password=$POSTGRES_SECRET_PSW \
                             --html=html_report/report.html
                         '''
-                    }
+                    // }
                 }
             }
         }
