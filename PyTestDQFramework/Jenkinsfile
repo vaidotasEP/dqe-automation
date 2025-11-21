@@ -44,7 +44,7 @@ pipeline {
                         python3 -m venv venv
                         . venv/bin/activate
                         pip install --upgrade pip
-                        pip install -r ./PyTestDQFramework/requirements.txt
+                        pip install -r PyTestDQFramework/requirements.txt
 
                         export PYTHONPATH="$WORKSPACE"
                         ./venv/bin/python -m pytest PyTestDQFramework/tests -m parquet_data \
