@@ -36,16 +36,23 @@ pipeline {
                 }
             }
         }
-        stage('Install Dependencies') {
+        stage('Activate virtual env') {
             steps {
                 script {
                     // Create a virtual environment
                     sh '''
                         python3 -m venv venv
                         . venv/bin/activate
-                        pip install -r "PyTest\\ DQ\\ Framework/requirements.txt"
                     '''
                 }
+            }
+        }
+        stage('Install dependencies') {
+            dir('PyTest DQ Framework') {
+                sh '''
+                python3 -m pip install --upgrade pip
+                python3 -m pip install -r requirements.txt
+                '''
             }
         }
         stage('Run tests') {
