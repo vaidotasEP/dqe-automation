@@ -48,15 +48,22 @@ pipeline {
                 }
             }
         }
-        stage('Run main') {
+        stage('Run tests') {
             steps {
                 script {
-                    // Activate the virtual environment, set PYTHONPATH, and run the script
-                    sh '''
-                        . venv/bin/activate
-                        export PYTHONPATH=$WORKSPACE
-                        python "PyTest DQ Framework/main.py"
-                    '''
+                    // Activate the virtual environment, set PYTHONPATH, and run the tests
+                    dir('PyTest DQ Framework') {
+                        sh '''
+                        export PYTHONPATH="$WORKSPACE"
+                        pytest tests -m "parquet_data" \
+                            --db_host="postgres" \
+                            --db_port="5432" \
+                            --db_name="mydatabase" \
+                            --db_user=$POSTGRES_SECRET_USR \
+                            --db_password=$POSTGRES_SECRET_PSW \
+                            --html=html_report/report.html
+                        '''
+                    }
                 }
             }
         }
