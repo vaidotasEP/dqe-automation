@@ -51,8 +51,7 @@ pipeline {
             steps {
                 dir('PyTest DQ Framework') {
                     sh '''
-                    python3 -m pip install --upgrade pip
-                    python3 -m pip install -r requirements.txt
+                    pip install -r requirements.txt
                     '''
                 }
             }
@@ -64,7 +63,7 @@ pipeline {
                     // dir('PyTest DQ Framework') {
                         sh '''
                         export PYTHONPATH="$WORKSPACE"
-                        python3 -m pytest tests -m "parquet_data" \
+                        pytest tests -m "parquet_data" \
                             --db_host="postgres" \
                             --db_port="5432" \
                             --db_name="mydatabase" \
