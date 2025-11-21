@@ -15,7 +15,7 @@ class DataQualityLibrary:
         if column_names:
             df.duplicates(column_names)
         else:
-            df.duplicates(all_columns)
+            df.duplicates(df.columns)
 
     @staticmethod
     def check_count(df1, df2):
@@ -31,5 +31,5 @@ class DataQualityLibrary:
 
     @staticmethod
     def check_not_null_values(df, column_names=None):
-        col for df.column_names:
+        for col in df.column_names:
             col.not_null
