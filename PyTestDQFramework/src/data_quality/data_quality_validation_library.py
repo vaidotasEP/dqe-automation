@@ -19,10 +19,10 @@ class DataQualityLibrary:
         return duplicated_mask.any()
 
     @staticmethod
-    def check_count(df1, df2) -> Tuple[bool, int]:
+    def check_count(df1, df2) -> bool: #Tuple[bool, int]:
         rows_df1 = len(df1)
         rows_df2 = len(df2)
-        return rows_df1 == rows_df2, rows_df1 - rows_df2
+        return rows_df1 == rows_df2 #, rows_df1 - rows_df2
 
     @staticmethod
     def check_data_full_data_set(
@@ -71,7 +71,7 @@ class DataQualityLibrary:
         rows_ok = source_key_set.issubset(target_key_set)
 
         return rows_ok  
-        
+
         
     @staticmethod
     def check_dataset_is_not_empty(df) -> bool:
