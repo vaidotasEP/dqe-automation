@@ -69,4 +69,8 @@ class PostgresConnectorContextManager:
         if not isinstance(query, str) or not query.strip():
             raise ValueError("SQL query must be a non-empty string")
 
-        return pd.read_sql_query(query, self.connection, params=params)
+        with self.connection.cursor() as cursor:
+            cursor.execute(query, params)
+            columns = [desc[0] for desc in cursor.description]
+            data = cursor.fetchall()
+            return pd.DataFrame(data, columns=columns)
