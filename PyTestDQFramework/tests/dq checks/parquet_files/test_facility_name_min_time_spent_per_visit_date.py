@@ -31,7 +31,7 @@ def source_data(db_connection):
 @pytest.fixture(scope='module')
 def target_data(parquet_reader):
     target_path = '/parquet_data/facility_name_min_time_spent_per_visit_date/'
-    target_data = parquet_reader.process(target_path)
+    target_data = parquet_reader.load(target_path)
     return target_data
 
 
