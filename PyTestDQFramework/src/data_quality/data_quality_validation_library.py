@@ -1,7 +1,6 @@
-import pandas as pd
 from __future__ import annotations
 from typing import tuple, Any, Dict, Optional
-
+import pandas as pd
 
 class DataQualityLibrary:
     """
