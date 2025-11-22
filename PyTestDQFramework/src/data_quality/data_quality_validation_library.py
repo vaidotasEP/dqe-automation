@@ -1,4 +1,6 @@
 import pandas as pd
+from __future__ import annotations
+from typing import tuple, Any, Dict, Optional
 
 
 class DataQualityLibrary:
@@ -71,14 +73,43 @@ class DataQualityLibrary:
             return False 
         
     @staticmethod
-    def check_dataset_is_not_empty(df) -> bool:
+    def check_dataset_is_not_empty(df: pd.DataFrame,) -> bool:
         """
         Return True if the DataFrame contains at least one row, False otherwise.
+
+        Parameters
+        ----------
+        df : DataFrame to check
+
+        Returns
+        -------
+        bool
+            True if the DataFrame contains at least one row, False otherwise.
         """
         return not df.empty
 
     @staticmethod
-    def check_not_null_values(df, column_names=None):
+    def check_not_null_values(df: pd.DataFrame, 
+        column_names: Optional[Union[str, list[str]]] = None
+    ) -> tuple[bool, pd.Series]:
+        """
+        Check for null values in specified DataFrame columns.
+        
+        Args:
+            df: The DataFrame to check for null values.
+            column_names: Column name(s) to check. Can be:
+                - None: check all columns (default)
+                - str: check single column
+                - list[str]: check multiple columns
+        
+        Returns:
+            tuple: (has_no_nulls, null_summary)
+                - has_no_nulls (bool): True if all checked columns are null-free
+                - null_summary (pd.Series): Columns with nulls and their counts
+        
+        Raises:
+            KeyError: If any specified column is not found in the DataFrame.
+        """
         if column_names is None:
             columns_to_check = df.columns
         else:
