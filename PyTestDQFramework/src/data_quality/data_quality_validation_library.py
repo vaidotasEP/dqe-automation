@@ -12,10 +12,20 @@ class DataQualityLibrary:
 
     @staticmethod
     def check_duplicates(df, column_names=None):
+        """
+        Check if DataFrame contains duplicate rows.
+        
+        Parameters:
+            df: DataFrame to check
+            column_names: Specific columns to check. If None, checks all columns.
+        
+        Returns:
+            True if duplicates exist, False otherwise.
+        """
         if column_names:
             duplicated_mask = df.duplicated(column_names)
         else:
-            duplicated_mask = df.duplicated(df.columns)
+            duplicated_mask = df.duplicated()
         return duplicated_mask.any()
 
     @staticmethod
