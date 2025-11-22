@@ -25,11 +25,11 @@ def pytest_configure(config):
 def db_connection(request):
     db_host = request.config.getoption("--db_host")
     db_name = request.config.getoption("--db_name")
-    db_port = request.config.getoption("--db_port")
     db_user = request.config.getoption("--db_user")
     db_password = request.config.getoption("--db_password")
+    db_port = request.config.getoption("--db_port")
     try:
-        with PostgresConnectorContextManager(db_host, db_name, db_port, db_user, db_password) as db_connector:
+        with PostgresConnectorContextManager(db_host, db_name, db_user, db_password, db_port) as db_connector:
             yield db_connector
     except Exception as e:
         pytest.fail(f"Failed to initialize PostgresConnectorContextManager: {e}")
