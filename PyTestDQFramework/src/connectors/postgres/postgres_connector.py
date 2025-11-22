@@ -17,7 +17,7 @@ class PostgresConnectorContextManager:
         db_name: str,
         db_user: str,
         db_password: str,
-        db_port: int = 5434,
+        db_port: int = 5432,
         connect_timeout: int = 10,
         autocommit: bool = True,
         cursor_factory=RealDictCursor,

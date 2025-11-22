@@ -5,7 +5,7 @@ from src.connectors.file_system.parquet_reader import ParquetReader
 
 def pytest_addoption(parser):
     parser.addoption("--db_host", action="store", default="localhost", help="Database host")
-    parser.addoption("--db_port", action="store", default="5434", help="Database port")
+    parser.addoption("--db_port", action="store", default="5432", help="Database port")
     parser.addoption("--db_name", action="store", default="mydatabase", help="Database name")
     parser.addoption("--db_user", action="store", default="myuser", help="Database user")
     parser.addoption("--db_password", action="store", default="mypassword", help="Database password")
