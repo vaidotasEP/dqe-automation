@@ -32,20 +32,20 @@ class DataQualityLibrary:
 
     @staticmethod
     def check_count(df1: pd.DataFrame, df2: pd.DataFrame) -> tuple[bool, int, int]:
-    """
-    Compare row counts between two DataFrames.
-    
-    Parameters:
-        df1: First DataFrame
-        df2: Second DataFrame
-    
-    Returns:
-        Tuple of (are_equal, df1_rows, df2_rows) where are_equal is True 
-        if both DataFrames have the same number of rows.
-    """
-    rows_df1 = len(df1)
-    rows_df2 = len(df2)
-    return (rows_df1 == rows_df2, rows_df1, rows_df2)
+        """
+        Compare row counts between two DataFrames.
+        
+        Parameters:
+            df1: First DataFrame
+            df2: Second DataFrame
+        
+        Returns:
+            Tuple of (are_equal, df1_rows, df2_rows) where are_equal is True 
+            if both DataFrames have the same number of rows.
+        """
+        rows_df1 = len(df1)
+        rows_df2 = len(df2)
+        return (rows_df1 == rows_df2, rows_df1, rows_df2)
 
     @staticmethod
     def check_data_completeness(
