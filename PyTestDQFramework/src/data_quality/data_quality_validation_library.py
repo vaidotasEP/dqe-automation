@@ -25,7 +25,7 @@ class DataQualityLibrary:
         return rows_df1 == rows_df2 #, rows_df1 - rows_df2
 
     @staticmethod
-    def check_data_full_data_set(
+    def check_data_completeness(
         source_df: pd.DataFrame,
         target_df: pd.DataFrame,
         key_cols = None
