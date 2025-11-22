@@ -13,9 +13,9 @@ class DataQualityLibrary:
     @staticmethod
     def check_duplicates(df, column_names=None):
         if column_names:
-            duplicated_mask = df.duplicates(column_names)
+            duplicated_mask = df.duplicated(column_names)
         else:
-            duplicated_mask = df.duplicates(df.columns)
+            duplicated_mask = df.duplicated(df.columns)
         return duplicated_mask.any()
 
     @staticmethod
