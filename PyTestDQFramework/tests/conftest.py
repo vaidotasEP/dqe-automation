@@ -29,7 +29,7 @@ def db_connection(request):
     db_user = request.config.getoption("--db_user")
     db_password = request.config.getoption("--db_password")
     try:
-        with PostgresConnectorContextManager(...) as db_connector:
+        with PostgresConnectorContextManager(db_host, db_name, db_port, db_user, db_password) as db_connector:
             yield db_connector
     except Exception as e:
         pytest.fail(f"Failed to initialize PostgresConnectorContextManager: {e}")
