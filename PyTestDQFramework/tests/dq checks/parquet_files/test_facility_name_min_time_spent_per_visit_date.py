@@ -12,7 +12,7 @@ def source_data(db_connection):
     SELECT
         f.facility_name,
         CAST(v.visit_timestamp AS DATE) AS visit_date,
-        MIN(v.duration_minutes) AS avg_time_spent
+        MIN(v.duration_minutes) AS min_time_spent
     FROM visits v
     JOIN facilities f
         ON f.id = v.facility_id
