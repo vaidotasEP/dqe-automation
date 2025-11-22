@@ -72,4 +72,5 @@ def test_check_uniqueness(target_data, data_quality_library):
 @pytest.mark.facility_name_min_time_spent_per_visit_date
 def test_check_not_null_values(target_data, data_quality_library):
     important_cols = ['facility_name', 'visit_date', 'min_time_spent']
-    assert data_quality_library.check_not_null_values(target_data, important_cols), f"Important columns {cols} contain NULL values"
+    has_no_nulls, columns_with_nulls = data_quality_library.check_not_null_values(target_data, important_cols)
+    assert has_no_nulls, f"Columns {columns_with_nulls} contain NULL values"
