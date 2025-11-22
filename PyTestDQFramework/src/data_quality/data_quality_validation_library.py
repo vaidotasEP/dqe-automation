@@ -28,7 +28,7 @@ class DataQualityLibrary:
     def check_data_full_data_set(
         source_df: pd.DataFrame,
         target_df: pd.DataFrame,
-        key_cols: Optional[Iterable[str]] = None
+        key_cols = None
     ) -> bool:
         """
         Returns True only if the target dataframe:
