@@ -32,6 +32,7 @@ class PostgresConnectorContextManager:
             "cursor_factory": cursor_factory,
         }
         self._autocommit = autocommit
+        self._cursor_factory = cursor_factory
         self._connection: Optional[PsycopgConnection] = None
 
     def __enter__(self) -> "PostgresConnectorContextManager":
@@ -52,7 +53,7 @@ class PostgresConnectorContextManager:
 
         self._connection.close()
         self._connection = None
-        return None  # never suppress exceptions
+        return None
 
     @property
     def connection(self) -> PsycopgConnection:
