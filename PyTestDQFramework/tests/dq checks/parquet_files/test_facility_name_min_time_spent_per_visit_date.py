@@ -51,7 +51,10 @@ def test_check_data_completeness(source_data, target_data, data_quality_library)
 @pytest.mark.check_count
 @pytest.mark.facility_name_min_time_spent_per_visit_date
 def test_check_count(source_data, target_data, data_quality_library):
-    assert data_quality_library.check_count(source_data, target_data)
+    assert data_quality_library.check_count(source_data, target_data), (
+        f"Row count mismatch: "
+        f"source={len(source_data)}, target={len(target_data)}"
+    )
 
 @pytest.mark.parquet_data
 @pytest.mark.data_quality
