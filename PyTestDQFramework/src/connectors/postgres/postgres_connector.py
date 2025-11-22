@@ -15,9 +15,9 @@ class PostgresConnectorContextManager:
         self,
         db_host: str,
         db_name: str,
+        db_port: int = 5432,
         db_user: str,
         db_password: str,
-        db_port: int = 5432,
         connect_timeout: int = 10,
         autocommit: bool = True,
         cursor_factory=RealDictCursor,
@@ -25,9 +25,9 @@ class PostgresConnectorContextManager:
         self._connection_params: Dict[str, Any] = {
             "host": db_host,
             "dbname": db_name,
-            "user": db_user,
-            "password": db_password,
             "port": db_port,
+            "user": db_user,
+            "password": db_password,  
             "connect_timeout": connect_timeout,
             "cursor_factory": cursor_factory,
         }
