@@ -27,13 +27,10 @@ class DataQualityLibrary:
     @staticmethod
     def check_data_completeness(
         source_df: pd.DataFrame,
-        target_df: pd.DataFrame,
-        key_cols = None
+        target_df: pd.DataFrame
     ) -> bool:
         """
-        Returns True only if the target dataframe:
-        1. Contains all columns that exist in the source dataframe.
-        2. Contains every key combination present in the source dataframe.
+        Returns True only if the target dataframe contains all columns that exist in the source dataframe.
 
         Parameters
         ----------
@@ -41,37 +38,16 @@ class DataQualityLibrary:
             DataFrame that represents the expected universe of data (the “source”).
         target_df : pd.DataFrame
             DataFrame to validate (the “target”).
-        key_cols : Iterable[str], optional
-            Columns that uniquely identify a row.  If omitted, all columns from the
-            source are used (which is only practical if every column participates
-            in the row identity).
 
         Returns
         -------
         bool
-            True if both column and row (key) completeness checks pass; otherwise False.
+            True if both column completeness checks pass; otherwise False.
         """
         # --- Column completeness ---
         columns_ok = set(source_df.columns).issubset(target_df.columns)
         if not columns_ok:
-            return False  # short-circuit if columns already fail
-
-        # --- Row completeness ---
-        if key_cols is None:
-            key_cols = list(source_df.columns)
-
-        # Drop duplicates so we’re only comparing unique key combinations
-        source_keys = source_df[key_cols].drop_duplicates()
-        target_keys = target_df[key_cols].drop_duplicates()
-
-        # Convert to a set of tuples for fast subset checking
-        source_key_set = set(map(tuple, source_keys.to_numpy()))
-        target_key_set = set(map(tuple, target_keys.to_numpy()))
-
-        rows_ok = source_key_set.issubset(target_key_set)
-
-        return rows_ok  
-
+            return False 
         
     @staticmethod
     def check_dataset_is_not_empty(df) -> bool:
