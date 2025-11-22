@@ -67,9 +67,9 @@ class DataQualityLibrary:
             True if both column completeness checks pass; otherwise False.
         """
         # --- Column completeness ---
-        columns_ok = set(source_df.columns).issubset(target_df.columns)
-        if not columns_ok:
-            return False 
+        columns_ok = set(target_df.columns).issubset(source_df.columns)
+        # if not columns_ok:
+        return columns_ok 
         
     @staticmethod
     def check_dataset_is_not_empty(df: pd.DataFrame,) -> bool:
