@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import tuple, Any, Dict, Optional
+from typing import Tuple, Any, Dict, Optional
 import pandas as pd
 
 class DataQualityLibrary:
@@ -30,7 +30,7 @@ class DataQualityLibrary:
         return duplicated_mask.any()
 
     @staticmethod
-    def check_count(df1: pd.DataFrame, df2: pd.DataFrame) -> tuple[bool, int, int]:
+    def check_count(df1: pd.DataFrame, df2: pd.DataFrame) -> Tuple[bool, int, int]:
         """
         Compare row counts between two DataFrames.
         
@@ -90,7 +90,7 @@ class DataQualityLibrary:
     @staticmethod
     def check_not_null_values(df: pd.DataFrame, 
         column_names: Optional[Union[str, list[str]]] = None
-    ) -> tuple[bool, pd.Series]:
+    ) -> Tuple[bool, pd.Series]:
         """
         Check for null values in specified DataFrame columns.
         
