@@ -19,7 +19,7 @@ class DataQualityLibrary:
         return duplicated_mask.any()
 
     @staticmethod
-    def check_count(df1, df2) -> bool: #Tuple[bool, int]:
+    def check_count(df1, df2):
         rows_df1 = len(df1)
         rows_df2 = len(df2)
         return (rows_df1 == rows_df2, rows_df1, rows_df2)

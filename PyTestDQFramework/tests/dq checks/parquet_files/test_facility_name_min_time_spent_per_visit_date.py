@@ -25,6 +25,13 @@ def source_data(db_connection):
         visit_date;
     """
     source_data  = db_connection.get_data_sql(source_query)
+
+    # Debug prints
+    print(f"Columns: {source_data.columns.tolist()}")
+    print(f"Dtypes:\n{source_data.dtypes}")
+    print(f"First 5 rows:\n{source_data.head()}")
+    print(f"Unique facility_name values (first 10): {source_data['facility_name'].unique()[:10]}")
+    
     return source_data
 
 
