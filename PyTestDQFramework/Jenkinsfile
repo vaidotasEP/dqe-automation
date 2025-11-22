@@ -47,7 +47,7 @@ pipeline {
                             pip install -r requirements.txt
 
                             export PYTHONPATH="$WORKSPACE/PyTestDQFramework"
-                            python -m pytest tests -m "smoke or check_count or data_quality" \
+                            python -m pytest tests -m "smoke or data_completeness or data_quality" \
                             --db_host=postgres --db_port=5432 \
                             --db_name=mydatabase --db_user="$POSTGRES_SECRET_USR" \
                             --db_password="$POSTGRES_SECRET_PSW" \
